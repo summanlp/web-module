@@ -1,1 +1,1 @@
-web: python code.py $PATH
+web: python code.py $PORT
