@@ -4,7 +4,7 @@ import web
 
 import json
 
-render = web.template.render('templates/')
+render = web.template.render('templates/', base='layout')
 urls = (
   '/', 'index',
   '/foo','foo'
@@ -12,7 +12,7 @@ urls = (
 
 class index:
     def GET(self):
-    	return render.index()
+      return render.index()
 		
 
 class foo:
