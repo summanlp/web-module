@@ -12,7 +12,8 @@ urls = (
 
 class index:
     def GET(self):
-      return render.index()
+    	print "holamundo" 
+    	return render.index()
 		
 
 class foo:
@@ -20,6 +21,15 @@ class foo:
 		lista = [1,3,5,7]
 		web.header('Content-Type', 'application/json')
 		return json.dumps({"data":lista})
+
+
+	def POST(self):
+		req = web.input()
+		print req
+		res = {"nombre": req.name}
+		web.header('Content-Type', 'application/json')
+		return json.dumps(res)
+
 
 
 if __name__ == "__main__":
