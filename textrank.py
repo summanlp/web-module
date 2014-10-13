@@ -1,6 +1,6 @@
 
 from pygraph.classes.digraph import digraph as pydigraph
-from pygraph.algorithms.pagerank import pagerank
+from pagerank_weighted import pagerank_weighted as pagerank
 from math import log10
 
 TEST_FILE = "testdata/textrank_example.txt"
@@ -11,7 +11,11 @@ def textrank(filename):
     set_graph_edge_weights(graph)
 
     d = pagerank(graph)
-    #print d
+
+    sentences = graph.nodes()
+    sentences.sort(key=lambda s: d[s], reverse=True)
+
+    print sentences[:4]
 
 
 def get_graph(filename):
