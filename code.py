@@ -32,7 +32,7 @@ class autosummarize:
         return render.autosummarize(default_text=text) 
         
     def POST(self):
-        textarea = web.input(id=text)
+        textarea = web.input(id="text")
         summary = textrank.textrank(text=textarea.text)
         return render.autosummarize(summary=summary) 
 
