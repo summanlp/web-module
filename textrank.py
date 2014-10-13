@@ -1,5 +1,5 @@
 
-from pygraph.classes.graph import graph as pygraph
+from pygraph.classes.digraph import digraph as pydigraph
 from pygraph.algorithms.pagerank import pagerank
 from math import log10
 
@@ -11,11 +11,11 @@ def textrank(filename):
     set_graph_edge_weights(graph)
 
     d = pagerank(graph)
-    print d
+    #print d
 
 
 def get_graph(filename):
-    graph = pygraph()
+    graph = pydigraph()
 
     # Creates the graph.
     with open(filename) as fp:
@@ -31,9 +31,16 @@ def set_graph_edge_weights(graph):
             if sentence_1 == sentence_2:
                 continue
 
+            edge_1 = (sentence_1, sentence_2)
+            edge_2 = (sentence_2, sentence_1)
+
+            if graph.has_edge(edge_1) or graph.has_edge(edge_2):
+                continue
+
             similarity = get_similarity(sentence_1, sentence_2)
-            edge = (sentence_1, sentence_2)
-            graph.add_edge(edge, similarity)
+
+            graph.add_edge(edge_1, similarity)
+            graph.add_edge(edge_2, similarity)
 
 
 def get_similarity(s1, s2):
