@@ -7,7 +7,8 @@ import json
 render = web.template.render('templates/')
 urls = (
   '/', 'index',
-  '/foo','foo'
+  '/foo','foo',
+  '/autosummarize', 'autosummarize'
 )
 
 class index:
@@ -20,6 +21,14 @@ class foo:
 		lista = [1,3,5,7]
 		web.header('Content-Type', 'application/json')
 		return json.dumps({"data":lista})
+        
+        
+class autosummarize:
+    def GET(self):
+        return render.autosummarize()       
+        
+    def POST(self):
+        return web.data()
 
 
 if __name__ == "__main__":
