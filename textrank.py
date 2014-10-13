@@ -3,27 +3,50 @@ from pygraph.classes.digraph import digraph as pydigraph
 from pagerank_weighted import pagerank_weighted as pagerank
 from math import log10
 
+SUMMARY_LENGTH = .2
 TEST_FILE = "testdata/textrank_example.txt"
 
 
 def textrank(filename):
+    # Creates the graph and calculates the simmilarity coefficient
+    # for every pair of nodes.
     graph = get_graph(filename)
     set_graph_edge_weights(graph)
 
-    d = pagerank(graph)
+    # Ranks the sentences using the PageRank algorithm.
+    scores = pagerank(graph)
 
-    sentences = graph.nodes()
-    sentences.sort(key=lambda s: d[s], reverse=True)
+    # Extracts the most important sentences.
+    extracted_sentences = extract_sentences(graph.nodes(), scores)
 
-    print sentences[:4]
+    # Sorts the extracted sentences by apparition order in the
+    # original text.
+    return sort_by_apparition(extracted_sentences, filename)
+
+
+def sort_by_apparition(extracted_sentences, filename):
+    summary = []
+
+    with open(filename) as text:
+        for sentence in text:
+            if sentence in extracted_sentences:
+                summary.append(sentence)
+
+    return summary
+
+
+def extract_sentences(sentences, scores):
+    sentences.sort(key=lambda s: scores[s], reverse=True)
+    length = len(sentences) * SUMMARY_LENGTH
+    return sentences[:int(length)]
 
 
 def get_graph(filename):
     graph = pydigraph()
 
     # Creates the graph.
-    with open(filename) as fp:
-        for line in fp:
+    with open(filename) as text:
+        for line in text:
             graph.add_node(line)
 
     return graph
@@ -63,4 +86,5 @@ def get_common_word_count(s1_list, s2_list):
     return sum(1 for w in set(s1_list) if w in set(s2_list))
 
 
-textrank(TEST_FILE)
+for line in textrank(TEST_FILE):
+    print line
