@@ -4,7 +4,7 @@ from pagerank_weighted import pagerank_weighted as pagerank
 from math import log10
 
 SUMMARY_LENGTH = .2
-TEST_FILE = "testdata/textrank_example.txt"
+TEST_FILE = "test_data/textrank_example.txt"
 
 
 def textrank(filename):
