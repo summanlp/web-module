@@ -1,8 +1,10 @@
 #! /usr/bin/env python
 
 import web
-
 import json
+from textrank import textrank
+
+PATH_DEFAULT_TEXT = "textrank/test_data/textrank_example.txt"
 
 render = web.template.render('templates/')
 urls = (
@@ -22,13 +24,17 @@ class foo:
 		web.header('Content-Type', 'application/json')
 		return json.dumps({"data":lista})
         
-        
+       
 class autosummarize:
     def GET(self):
-        return render.autosummarize()       
+        with open(PATH_DEFAULT_TEXT) as fp:
+            text = fp.read()
+        return render.autosummarize(default_text=text) 
         
     def POST(self):
-        return web.data()
+        textarea = web.input(id=text)
+        summary = textrank.textrank(text=textarea.text)
+        return render.autosummarize(summary=summary) 
 
 
 if __name__ == "__main__":

@@ -7,10 +7,16 @@ SUMMARY_LENGTH = .2
 TEST_FILE = "test_data/textrank_example.txt"
 
 
-def textrank(filename):
+def textrank(filename=None, text=None):
     # Creates the graph and calculates the simmilarity coefficient
     # for every pair of nodes.
-    graph = get_graph(filename)
+    if text != None:
+        text = text.split('\n')
+    
+    if filename != None:
+        text = get_text_from_file(filename)
+    
+    graph = get_graph(text)
     set_graph_edge_weights(graph)
 
     # Ranks the sentences using the PageRank algorithm.
@@ -21,16 +27,17 @@ def textrank(filename):
 
     # Sorts the extracted sentences by apparition order in the
     # original text.
-    return sort_by_apparition(extracted_sentences, filename)
+    summary = sort_by_apparition(extracted_sentences, text)
+    
+    return "\n".join(summary)
 
 
-def sort_by_apparition(extracted_sentences, filename):
+def sort_by_apparition(extracted_sentences, text):
     summary = []
 
-    with open(filename) as text:
-        for sentence in text:
-            if sentence in extracted_sentences:
-                summary.append(sentence)
+    for sentence in text:
+        if sentence in extracted_sentences:
+            summary.append(sentence)
 
     return summary
 
@@ -41,13 +48,17 @@ def extract_sentences(sentences, scores):
     return sentences[:int(length)]
 
 
-def get_graph(filename):
+def get_text_from_file(filename):
+    with open(filename) as fp:
+        return fp.readlines()
+
+
+def get_graph(text):
     graph = pydigraph()
 
     # Creates the graph.
-    with open(filename) as text:
-        for line in text:
-            graph.add_node(line)
+    for line in text:
+        graph.add_node(line)
 
     return graph
 
@@ -86,5 +97,5 @@ def get_common_word_count(s1_list, s2_list):
     return sum(1 for w in set(s1_list) if w in set(s2_list))
 
 
-for line in textrank(TEST_FILE):
-    print line
+if __name__ == "__main__":
+    print textrank(filename=TEST_FILE)

@@ -1,4 +1,4 @@
-$var cssfiles: css/bootstrap.min.css
+$def with (default_text="", summary="")
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,11 +17,15 @@ $var cssfiles: css/bootstrap.min.css
     
     <br />
     
-    <form method="POST">
-        <textarea name="text" id="text" cols="45" rows="5"></textarea>    
-        <br />
-        <input type="submit" value="Summarize!">
-    </form>
+    $if default_text != "":
+        <form method="POST">
+            <textarea name="text" id="text" cols="80" rows="20">$default_text</textarea>    
+        
+            <br />
+            <input type="submit" value="Summarize!">
+        </form>
+    $if summary != "":
+        $summary
     
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
