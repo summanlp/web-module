@@ -1,0 +1,47 @@
+$def with (default_text="", summary="")
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Autosummarize!</title>
+
+    <!-- Bootstrap -->
+    <link href="./static/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="row">
+        <div class="col-md-offset-1 col-md-8">
+            <h1>Autosummarization tool</h1>
+        </div>
+    </div>
+    
+    <br />
+    
+    <div class="row">
+        $if default_text != "":
+            <div class="col-md-offset-1 col-md-8">
+                <form method="POST">
+                    <textarea name="text" id="text" style="resize: none;" cols="80" rows="20">$default_text</textarea>    
+        
+                    <br />
+                    <input type="submit" value="Summarize!">
+                </form>
+            </div>
+            
+        $if summary != "":
+            <div class="col-md-offset-1 col-md-6">
+                <p>$summary</p>
+            </div>
+            <div class="col-md-5"></div>
+    </div>
+    
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="./static/js/bootstrap.min.js"></script>
+  </body>
+</html>
