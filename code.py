@@ -8,9 +8,10 @@ PATH_DEFAULT_TEXT = "textrank/test_data/textrank_example.txt"
 
 render = web.template.render('templates/', base='layout')
 urls = (
-  '/', 'index',
+  #'/', 'index',
+  '/', 'autosummarize',
   '/foo','foo',
-  '/autosummarize', 'autosummarize'
+  '/gexf','gexf'
 )
 
 class index:
@@ -44,6 +45,10 @@ class autosummarize:
 		res = {"nombre": req.name}
 		web.header('Content-Type', 'application/json')
 		return json.dumps(res)
+
+class gexf:
+    def GET(self):
+    	return render.gexf()
 
 
 
