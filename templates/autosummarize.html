@@ -11,12 +11,13 @@ $var title: Summarizer
 
 <div class="row">
     $if default_text != "":
-        <div class="col-md-offset-1 col-md-8">
+        <div class="col-md-offset-1 col-md-6">
             <form method="POST" id="inputText">
-                <textarea name="text" id="text" style="resize: none;" cols="80" rows="20">$default_text</textarea>    
+                <textarea name="text" id="text" style="resize: none;font-size:15px;line-height: 120%;" 
+                    cols="80" rows="20" placeholder="Enter the text here">$default_text</textarea>    
 
                 <br />
-                <button class="btn btn-primary btn-lg" type="submit" form="inputText" value="Submit">Summarize!</button>
+                <button class="btn btn-primary btn-lg pull-right" type="submit" form="inputText" value="Submit">Summarize!</button>
             </form>
         </div>
 

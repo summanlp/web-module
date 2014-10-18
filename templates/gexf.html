@@ -1,11 +1,19 @@
 $var title: Data thanks to Gephi 
 
+<script type="text/javascript">
+function loadCSS() {
+    $$('head').append('<link rel="stylesheet" type="text/css" href="./static/css/gexfjs.css" />');
+    $$('head').append('<link rel="stylesheet" type="text/css" href="./static/css/jquery-ui.css" />');
+  }
+
+  loadCSS();
+</script>
 <script src="./static/js/jquery.mousewheel.min.js"></script>
 <script src="./static/js/jquery-ui-1.8.16.custom.min.js"></script>
 <script src="./static/js/gexfjs.js"></script>
 <script src="./static/config.js"></script>
 
-
+<div>
 <div id="zonecentre" class="gradient">
 	<canvas id="carte" width="0" height="0"></canvas>
 	<ul id="ctlzoom">
@@ -46,3 +54,4 @@ $var title: Data thanks to Gephi
 </div>
 <ul id="autocomplete">
 </ul>
+<div>
