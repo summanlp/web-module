@@ -1,6 +1,6 @@
 web-module
 ==========
 
-Web module for TextRank execution visualization
+Web module for TextRank execution and visualization
 
-You can take a look at our new app in the Official Site of [Summa NLP](http://summanlp.herokuapp.com/)
+You can check out our new app at the Official Site of <a target="_blank" href="http://summanlp.herokuapp.com/">Summa NLP</a>
