@@ -1,4 +1,4 @@
-$def with (default_text="", summary="")
+$def with (summary="")
 $var title: Summarizer
 
 <div class="row">
@@ -10,20 +10,20 @@ $var title: Summarizer
 <br />
 
 <div class="row">
-    $if default_text != "":
-        <div class="col-md-offset-1 col-md-6">
-            <form method="POST" id="inputText">
-                <textarea name="text" id="text" style="resize: none;font-size:15px;line-height: 120%;" 
-                    cols="80" rows="20" placeholder="Enter the text here">$default_text</textarea>    
-
-                <br />
-                <button class="btn btn-primary btn-lg pull-right" type="submit" form="inputText" value="Submit">Summarize!</button>
-            </form>
-        </div>
-
     $if summary != "":
         <div class="col-md-offset-1 col-md-6">
             <p>$summary</p>
         </div>
         <div class="col-md-5"></div>
+
+    $else:
+        <div class="col-md-offset-1 col-md-6">
+            <form method="POST" id="inputText">
+                <textarea name="text" id="text" style="resize: none;font-size:15px;line-height: 120%;" 
+                cols="80" rows="20" placeholder="Enter the text to be summarized here"></textarea>    
+
+                <br />
+                <button class="btn btn-primary btn-lg pull-right" type="submit" form="inputText" value="Submit">Summarize!</button>
+            </form>
+        </div>
 </div>

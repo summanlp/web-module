@@ -2,23 +2,15 @@
 
 import web
 import json
-from textrank import textrank
 
 PATH_DEFAULT_TEXT = "textrank/test_data/textrank_example.txt"
 
 render = web.template.render('templates/', base='layout')
 urls = (
-  #'/', 'index',
-  '/', 'autosummarize',
-  '/foo','foo',
-  '/gexf','gexf'
-)
-
-class index:
-    def GET(self):
-    	print "holamundo" 
-    	return render.index()
-		
+    '/', 'autosummarize',
+    '/foo','foo',
+    '/gexf','gexf'
+)		
 
 class foo:
 	def GET(self):
@@ -29,22 +21,18 @@ class foo:
        
 class autosummarize:
     def GET(self):
-        with open(PATH_DEFAULT_TEXT) as fp:
-            text = fp.read()
-        return render.autosummarize(default_text=text) 
+        return render.autosummarize() 
         
+    # def POST(self):
+    #     textarea = web.input(id="text")
+    #     summary = textrank.textrank(text=textarea.text)
+    #     return render.autosummarize(summary=summary) 
+
     def POST(self):
-        textarea = web.input(id="text")
-        summary = textrank.textrank(text=textarea.text)
-        return render.autosummarize(summary=summary) 
-
-
-	def POST(self):
-		req = web.input()
-		print req
-		res = {"nombre": req.name}
-		web.header('Content-Type', 'application/json')
-		return json.dumps(res)
+        req = web.input()
+        print req
+        web.header('Content-Type', 'application/json')
+        return json.dumps(res)
 
 class gexf:
     def GET(self):
