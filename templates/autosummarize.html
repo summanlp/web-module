@@ -2,28 +2,66 @@ $def with (summary="")
 $var title: Summarizer
 
 <div class="row">
-    <div class="col-md-offset-1 col-md-8">
-        <h1>Autosummarization tool</h1>
+    <div class="col-md-offset-1">
+        <h2>Autosummarization tool</h2>
     </div>
 </div>
 
 <br />
 
-<div class="row">
+
     $if summary != "":
-        <div class="col-md-offset-1 col-md-6">
-            <p>$summary</p>
+        <div class="row">
+            <div class="col-md-offset-1">
+                <h4>Summary:</h4>
+            </div>        
+            <div class="col-md-offset-2 col-md-6">    
+                <p>$summary</p>
+            </div>
         </div>
-        <div class="col-md-5"></div>
 
     $else:
-        <div class="col-md-offset-1 col-md-6">
-            <form method="POST" id="inputText">
-                <textarea name="text" id="text" style="resize: none;font-size:15px;line-height: 120%;" 
-                cols="80" rows="20" placeholder="Enter the text to be summarized here"></textarea>    
+        <div class="row">
+            <div class="col-md-offset-1 col-md-6">
+                <form>
+                    <textarea name="text" id="text" style="resize: none;font-size:15px;line-height: 120%;" 
+                    cols="90" rows="20" placeholder="Enter the text to be summarized here"></textarea>    
 
-                <br />
-                <button class="btn btn-primary btn-lg pull-right" type="submit" form="inputText" value="Submit">Summarize!</button>
-            </form>
+                    <button class="btn btn-default btn-sm" type="button" id="showOptions">Show options</button>
+                    <div id="options" style="display:none; margin: 15px;">
+                        <div class="form-element">
+                            <label for="foo">Length</label>
+                            <input id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="14"/>
+                        </div>
+                        
+                    </div>
+
+                    <div class="pull-right">
+                        <button class="btn btn-success btn-lg" name="type" type="submit" formmethod="post" value="keywords">Keywords</button>
+                        <button class="btn btn-primary btn-lg" name="type" type="submit" formmethod="post" value="summarize">Summarize</button>
+                    </div>
+                </form>
+            </div>
         </div>
-</div>
+
+<script>
+    $$(document).ready(function(){
+        var options = false;
+        $$("#showOptions").on("click", function() {
+            $$("#options").toggle();
+            if (! options) {
+                $$(this).html("Hide options");
+            } else {
+                $$(this).html("Show options");
+            }
+            options = !options;
+        });
+
+        $$('#ex1').slider({
+            formatter: function(value) {
+                return 'Current value: ' + value;
+            }
+        });
+
+    });
+</script>

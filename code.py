@@ -2,8 +2,7 @@
 
 import web
 import json
-
-PATH_DEFAULT_TEXT = "textrank/test_data/textrank_example.txt"
+from summa import summarizer, keywords
 
 render = web.template.render('templates/', base='layout')
 urls = (
@@ -23,16 +22,12 @@ class autosummarize:
     def GET(self):
         return render.autosummarize() 
         
-    # def POST(self):
-    #     textarea = web.input(id="text")
-    #     summary = textrank.textrank(text=textarea.text)
-    #     return render.autosummarize(summary=summary) 
-
     def POST(self):
-        req = web.input()
-        print req
-        web.header('Content-Type', 'application/json')
-        return json.dumps(res)
+        textarea = web.input()
+        print textarea
+        summary = summarizer.summarize(text=textarea.text)
+        return render.autosummarize(summary=summary)
+
 
 class gexf:
     def GET(self):
