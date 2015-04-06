@@ -4,14 +4,32 @@ import web
 import json
 
 # Imports files from a parent directory.
-from summa import summarizer, keywords
+from summa.summarizer import summarize
+from summa.keywords import keywords
 
 render = web.template.render('templates/', base='layout')
 urls = (
     '/', 'autosummarize',
     '/foo','foo',
     '/gexf','gexf'
-)		
+)
+LANGUAGES = {
+    'danish': 'Danish',
+    'dutch': 'Dutch',
+    'english': 'English',
+    'finnish': 'Finnish',
+    'french': 'French',
+    'german': 'German',
+    'hungarian': 'Hungarian',
+    'italian': 'Italian',
+    'norwegian': 'Norwegian',
+    'porter': 'Porter',
+    'portuguese': 'Portuguese',
+    'romanian': 'Romanian',
+    'russian': 'Russian',
+    'spanish': 'Spanish',
+    'swedish': 'Swedish'
+}
 
 class foo:
 	def GET(self):
@@ -22,13 +40,18 @@ class foo:
        
 class autosummarize:
     def GET(self):
-        return render.autosummarize() 
+        return render.autosummarize(languages=LANGUAGES) 
         
     def POST(self):
-        textarea = web.input()
-        print textarea
-        summary = summarizer.summarize(text=textarea.text)
-        return render.autosummarize(summary=summary)
+        args = web.input()
+        show_scores = "scores" in args
+        length = int(args.length) / 100.0
+        language = args.language
+        text = args.text
+        method = summarize if args.type == "summarize" else keywords
+
+        result = method(text=text, ratio=length, language=language, scores=show_scores)
+        return render.autosummarize(summary=result)
 
 
 class gexf:
