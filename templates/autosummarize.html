@@ -24,17 +24,18 @@ $var title: Summarizer
     $else:
         <div class="row">
             <div class="col-md-offset-1 col-md-6">
-                <form>
-                    <textarea name="text" id="text" style="resize: none;font-size:15px;line-height: 120%;" 
-                    cols="90" rows="20" placeholder="Enter the text to be summarized here"></textarea>    
+                <form class="form-horizontal">
+                    <textarea class="form-control" name="text" id="text" style="resize: none; font-size:15px; line-height: 120%;" 
+                        cols="90" rows="15" placeholder="Enter a text to summarize..."></textarea>    
+                        
+                    <br />
 
                     <button class="btn btn-default btn-sm" type="button" id="showOptions">Show options</button>
                     <div id="options" style="display:none; margin: 15px;">
                         <div class="form-element">
                             <label for="foo">Length</label>
                             <input id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="14"/>
-                        </div>
-                        
+                        </div>                        
                     </div>
 
                     <div class="pull-right">
@@ -44,6 +45,8 @@ $var title: Summarizer
                 </form>
             </div>
         </div>
+        
+        <br />
 </div>        
 
 <script>
