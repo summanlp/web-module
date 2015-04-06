@@ -2,6 +2,11 @@
 
 import web
 import json
+import sys, os
+
+# Imports files from a parent directory.
+sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir, 'textrank'))
+from summa.summarizer import summarize as textrank
 from summa import summarizer, keywords
 
 render = web.template.render('templates/', base='layout')
@@ -34,7 +39,5 @@ class gexf:
     	return render.gexf()
 
 
-
-if __name__ == "__main__":
-    app = web.application(urls, globals())
-    app.run()
+app = web.application(urls, globals())
+wsgiapp = app.wsgifunc()
