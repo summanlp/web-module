@@ -4,7 +4,6 @@ import web
 import json
 
 # Imports files from a parent directory.
-from summa.summarizer import summarize as textrank
 from summa import summarizer, keywords
 
 render = web.template.render('templates/', base='layout')
@@ -38,4 +37,8 @@ class gexf:
 
 
 app = web.application(urls, globals())
+
+if __name__ == "__main__":
+    app.run()
+
 wsgiapp = app.wsgifunc()
