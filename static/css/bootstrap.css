@@ -7193,7 +7193,7 @@ input[type="checkbox"]:disabled:checked:after,
 .progress {
   position: relative;
   z-index: 1;
-  height: 6px;
+  height: 12px;
   border-radius: 0;
   -webkit-box-shadow: none;
   box-shadow: none;

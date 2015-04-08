@@ -1,4 +1,4 @@
-$def with (summary="", languages={})
+$def with (text="", summary="", languages={})
 $var title: Summarizer
 
 <div class="container">
@@ -10,71 +10,71 @@ $var title: Summarizer
 
     <br />
 
-
-    $if summary != "":
-        <div class="row">
-            <div class="col-md-offset-1">
-                <h4>Summary:</h4>
-            </div>        
-            <div class="col-md-offset-2 col-md-6">    
-                <p>$summary</p>
-            </div>
-        </div>
-
-    $else:
-        <div class="row">
-            <div class="col-md-offset-1 col-md-6">
-                <form role="form" class="form-horizontal">
-                    <textarea class="form-control" name="text" id="text" style="resize: none; font-size:15px; line-height: 120%;" 
-                        cols="90" rows="15" placeholder="Enter a text to summarize..." required></textarea>    
-                        
-                    <br />
-
-                    <button class="btn btn-default btn-sm" type="button" id="showOptions">Show options</button>
+    <div class="row">
+        <div class="col-md-offset-1 col-md-6">
+            <form role="form" class="form-horizontal">
+                <textarea class="form-control" name="text" id="text" style="resize: none; font-size:15px; line-height: 120%;" 
+                    cols="90" rows="15" placeholder="Enter a text to summarize..." required>$text</textarea>    
                     
-                    <div id="options" style="display:none; margin: 15px;">
-                        <div class="form-group">
-                            <label class="control-label col-md-2" for="length">Length</label>
-                            <div class="col-md-6">
-                            <input id="ex1" name="length" data-slider-id='ex1Slider' type="text" data-slider-min="1" data-slider-max="100" data-slider-step="1" data-slider-value="20" class="form-control" />
-                            </div>
-                        </div> 
+                <br />
 
-                        <div class="form-group">
-                            <label class="control-label col-md-2" for="language">Language</label>
-                            <div class="col-md-6">
-                                <select class="form-control" name="language" id="language">
-                                    $for key,name in languages.iteritems():
-                                        $if key == "english":
-                                            <option value="$key" selected>$name</option>
-                                        $else:
-                                            <option value="$key">$name</option>
-                                </select>
-                            </div>
+                <button class="btn btn-default btn-sm" type="button" id="showOptions">Show options</button>
+                
+                <div id="options" style="display:none; margin: 15px;">
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="length">Length</label>
+                        <div class="col-md-6">
+                        <input id="ex1" name="length" data-slider-id='ex1Slider' type="text" data-slider-min="1" data-slider-max="100" data-slider-step="1" data-slider-value="20" class="form-control" />
                         </div>
+                    </div> 
 
-                        <div class="form-group">
-                            <label class="control-label col-md-2" for="scores">Scores</label>
-                            <div class="col-md-6"><input id="showScores" name="scores" type="checkbox"></div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="language">Language</label>
+                        <div class="col-md-6">
+                            <select class="form-control" name="language" id="language">
+                                $for key,name in languages.iteritems():
+                                    $if key == "english":
+                                        <option value="$key" selected>$name</option>
+                                    $else:
+                                        <option value="$key">$name</option>
+                            </select>
                         </div>
                     </div>
 
-                    <div class="pull-right">
-                        <button class="btn btn-success btn-lg" name="type" type="submit" formmethod="post" value="keywords">Keywords</button>
-                        <button class="btn btn-primary btn-lg" name="type" type="submit" formmethod="post" value="summarize">Summarize</button>
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="scores">Scores</label>
+                        <div class="col-md-6"><input id="showScores" name="scores" type="checkbox"></div>
                     </div>
-                </form>
-            </div>
+                </div>
+
+                <div class="pull-right">
+                    <button class="btn btn-success btn-lg submits" value="keywords">Keywords</button>
+                    <button class="btn btn-primary btn-lg submits" value="summarize">Summarize</button>
+                </div>
+            </form>
         </div>
-        
-        <br />
+    </div>
+    
+    <br />
+
+    <div class="col-md-offset-1 col-md-6 progress progress-striped active" style="display:none;">
+        <div class="progress-bar" style="width: 100%"></div>
+    </div>
+
+    <div id="results" class="row" style="display:none; margin-bottom: 20px;">
+        <div class="col-md-offset-1">
+            <h4 id="resulttitle"></h4>
+        </div>        
+        <div class="col-md-offset-2 col-md-6">    
+            <p id="summary"></p>
+        </div>
+    </div>
 </div>        
 
 <script>
     $$(document).ready(function(){
         var options = false;
         $$("#showOptions").on("click", function() {
-            // $$("#options").toggle();
             if (! options) {
                 $$("#options").show();
                 $$(this).html("Hide options");
@@ -92,6 +92,31 @@ $var title: Summarizer
         });
 
         $$("#showScores").bootstrapSwitch();
+
+        $$(".submits").click(function(event) {
+            event.preventDefault();
+            if ($$("#text").val().length > 0) {
+                $$("#results").hide();
+                $$(".progress").toggle();
+                postData($$(this).attr("value"));
+            }
+        })
+
+        function postData(methodName) {
+            $$.post("/", {
+                text: $$("#text").val(),
+                scores: $$("#showScores").bootstrapSwitch('state'),
+                length: $$("#ex1").val(),
+                language: $$("#language").val(),
+                method: methodName
+            }, function(data) {
+                $$(".progress").toggle();
+                var title = methodName == "summarize" ? "Summary:" : "Keywords:"
+                $$("#resulttitle").html(title);
+                $$("#summary").html(data);
+                $$("#results").show();
+            });
+        }
 
     });
 </script>

@@ -32,31 +32,49 @@ LANGUAGES = {
 }
 
 class foo:
-	def GET(self):
-		lista = [1,3,5,7]
-		web.header('Content-Type', 'application/json')
-		return json.dumps({"data":lista})
-        
-       
+    def GET(self):
+        lista = [1,3,5,7]
+        web.header('Content-Type', 'application/json')
+        return json.dumps({"data":lista})
+
+    def POST(self):
+        input = web.input()
+        print input
+        return "the whole summary goes here"
+
+
+def format_results(result, show_scores, method):
+    separator = "<br>" if method == "summarize" else "<br> - "
+    result = ["{:.3f}".format(score) + " - " + phrase for phrase, score in result ]if show_scores else result
+    return separator[4:] + separator.join(result)
+
+
+
 class autosummarize:
     def GET(self):
         return render.autosummarize(languages=LANGUAGES) 
         
     def POST(self):
         args = web.input()
-        show_scores = "scores" in args
+        print args
+        show_scores = args.scores == "true"
         length = int(args.length) / 100.0
         language = args.language
         text = args.text
-        method = summarize if args.type == "summarize" else keywords
+        method = summarize if args.method == "summarize" else keywords
 
-        result = method(text=text, ratio=length, language=language, scores=show_scores)
-        return render.autosummarize(summary=result)
+        try:
+            result = method(text=text, ratio=length, language=language, split=True, scores=show_scores)
+            return format_results(result, show_scores, args.method)
+        except:
+            return ""
+
+
 
 
 class gexf:
     def GET(self):
-    	return render.gexf()
+        return render.gexf()
 
 
 app = web.application(urls, globals())
