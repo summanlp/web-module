@@ -14,8 +14,8 @@ $var title: Summarizer
         <div class="col-md-offset-1 col-md-6">
             <form role="form" class="form-horizontal">
                 <textarea class="form-control" name="text" id="text" style="resize: none; font-size:15px; line-height: 120%;" 
-                    cols="90" rows="15" placeholder="Enter a text to summarize..." required>$text</textarea>    
-                    
+                cols="90" rows="15" placeholder="Enter a text to summarize..." required>$text</textarea>    
+
                 <br />
 
                 <button class="btn btn-default btn-sm" type="button" id="showOptions">Show options</button>
@@ -24,7 +24,7 @@ $var title: Summarizer
                     <div class="form-group">
                         <label class="control-label col-md-2" for="length">Length</label>
                         <div class="col-md-6">
-                        <input id="ex1" name="length" data-slider-id='ex1Slider' type="text" data-slider-min="1" data-slider-max="100" data-slider-step="1" data-slider-value="20" class="form-control" />
+                            <input id="ex1" name="length" data-slider-id='ex1Slider' type="text" data-slider-min="1" data-slider-max="100" data-slider-step="1" data-slider-value="20" class="form-control" />
                         </div>
                     </div> 
 
@@ -48,13 +48,28 @@ $var title: Summarizer
                 </div>
 
                 <div class="pull-right">
-                    <button class="btn btn-success btn-lg submits" value="keywords">Keywords</button>
-                    <button class="btn btn-primary btn-lg submits" value="summarize">Summarize</button>
+                    <!-- <button class="btn btn-success btn-lg submits" value="keywords">Keywords</button> -->
+
+                    <div class="btn-group">
+                        <a class="btn btn-success btn-lg submits" data-value="keywords">Keywords</a>
+                        <a href="#" class="btn btn-success btn-lg dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a class="exports" data-value="keywords">Export graph</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="btn-group">
+                        <a class="btn btn-primary btn-lg submits" data-value="summarize">Summarize</a>
+                        <a href="#" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a class="exports" data-value="summarize">Export graph</a></li>
+                        </ul>
+                    </div>
                 </div>
             </form>
         </div>
-    </div>
-    
+    </div> <!-- /row -->
+
     <br />
 
     <div class="col-md-offset-1 col-md-6 progress progress-striped active" style="display:none;">
@@ -98,9 +113,18 @@ $var title: Summarizer
             if ($$("#text").val().length > 0) {
                 $$("#results").hide();
                 $$(".progress").toggle();
-                postData($$(this).attr("value"));
+                postData($$(this).data("value"));
             }
-        })
+        });
+
+        $$(".exports").click(function(event) {
+            event.preventDefault();
+            if ($$("#text").val().length > 0) {
+                $$("#results").hide();
+                $$(".progress").toggle();
+                exportData($$(this).data("value"));
+            }
+        });
 
         function postData(methodName) {
             $$.post("/", {
@@ -116,6 +140,34 @@ $var title: Summarizer
                 $$("#summary").html(data);
                 $$("#results").show();
             });
+        }
+
+        function exportData(methodName) {
+            nonAjaxPost("/gexf", {
+                text: $$("#text").val(),
+                language: $$("#language").val(),
+                method: methodName
+            });
+        }
+
+        function nonAjaxPost(action, input) {
+            'use strict';
+            var form;
+            form = $$('<form />', {
+                action: action,
+                method: "POST",
+                style: 'display: none;'
+            });
+            if (typeof input !== 'undefined' && input !== null) {
+                $$.each(input, function (name, value) {
+                    $$('<input />', {
+                        type: 'hidden',
+                        name: name,
+                        value: value
+                    }).appendTo(form);
+                });
+            }
+            form.appendTo('body').submit();
         }
 
     });

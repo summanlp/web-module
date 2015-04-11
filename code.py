@@ -2,10 +2,11 @@
 
 import web
 import json
-
-# Imports files from a parent directory.
+import time
+from os import system
 from summa.summarizer import summarize
 from summa.keywords import keywords
+from summa.export import gexf_export
 
 render = web.template.render('templates/', base='layout')
 urls = (
@@ -56,7 +57,6 @@ class autosummarize:
         
     def POST(self):
         args = web.input()
-        print args
         show_scores = args.scores == "true"
         length = int(args.length) / 100.0
         language = args.language
@@ -70,11 +70,19 @@ class autosummarize:
             return ""
 
 
-
-
 class gexf:
     def GET(self):
         return render.gexf()
+
+    def POST(self):
+        args = web.input()
+        language = args.language
+        text = args.text
+        by_sentence, by_word = (True, False) if args.method == "summarize" else (False, True)
+        path = "export-" + str(time.time()) + ".gexf"
+        gexf_export(text=text, path=path, language=language, by_sentence=by_sentence, by_word=by_word)
+        system("mv {0} static/{0}".format(path))
+        return render.gexf(path="./static/" + path)
 
 
 app = web.application(urls, globals())

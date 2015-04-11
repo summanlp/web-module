@@ -1,17 +1,75 @@
-$var title: Data thanks to Gephi 
+$def with (path)
+$var title: Gephi Data
 
 <script type="text/javascript">
 function loadCSS() {
     $$('head').append('<link rel="stylesheet" type="text/css" href="./static/css/gexfjs.css" />');
     $$('head').append('<link rel="stylesheet" type="text/css" href="./static/css/jquery-ui.css" />');
   }
-
   loadCSS();
+
+  $$("#navbar").toggle();
+
 </script>
 <script src="./static/js/jquery.mousewheel.min.js"></script>
 <script src="./static/js/jquery-ui-1.8.16.custom.min.js"></script>
 <script src="./static/js/gexfjs.js"></script>
-<script src="./static/config.js"></script>
+<script>
+	setParams({
+    graphFile : "$path",
+        /*
+            The GEXF file to show ! -- can be overriden by adding
+            a hash to the document location, e.g. index.html#celegans.gexf
+        */
+	showEdges : true,
+        /*
+            Default state of the "show edges" button
+        */
+    useLens : false,
+        /*
+            Default state of the "use lens" button
+        */
+    zoomLevel : 0,
+        /*
+            Default zoom level. At zoom = 0, the graph should fill a 800x700px zone
+         */
+    curvedEdges : true,
+        /*
+            False for curved edges, true for straight edges
+            this setting can't be changed from the User Interface
+        */
+    edgeWidthFactor : 1,
+        /*
+            Change this parameter for wider or narrower edges
+            this setting can't be changed from the User Interface
+        */
+    minEdgeWidth : 1,
+    maxEdgeWidth : 50,
+    nodeSizeFactor : 1,
+        /*
+            Change this parameter for smaller or larger nodes
+           this setting can't be changed from the User Interface
+        */
+    replaceUrls : true,
+        /*
+            Enable the replacement of Urls by Hyperlinks
+            this setting can't be changed from the User Interface
+        */
+    showEdgeWeight : true,
+        /*
+            Show the weight of edges in the list
+            this setting can't be changed from the User Interface
+        */
+    language: false
+        /*
+            Set to an ISO language code to switch the interface to that language.
+            Available languages are English [en], French [fr], Spanish [es],
+            Italian [it], Finnish [fi], Turkish [tr] and Greek [el].
+            If set to false, the language will be that of the user's browser.
+        */
+});
+
+</script>
 
 <div>
 <div id="zonecentre" class="gradient">
@@ -45,7 +103,7 @@ function loadCSS() {
 </div>
 <div id="titlebar">
 	<div id="maintitle">
-		<h1><a href="http://gephi.org/" target="_blank" title="Made with Gephi">Gephi: JavaScript GEXF Viewer</a></h1>
+		<h1><a href="/" title="Summa Home"></a></h1>
 	</div>
 	<form id="recherche">
 		<input id="searchinput" class="grey" autocomplete="off" />
