@@ -2,13 +2,17 @@ $def with (path)
 $var title: Gephi Data
 
 <script type="text/javascript">
-function loadCSS() {
-    $$('head').append('<link rel="stylesheet" type="text/css" href="./static/css/gexfjs.css" />');
-    $$('head').append('<link rel="stylesheet" type="text/css" href="./static/css/jquery-ui.css" />');
-  }
-  loadCSS();
+	function loadCSS() {
+		$$('head').append('<link rel="stylesheet" type="text/css" href="./static/css/gexfjs.css" />');
+		$$('head').append('<link rel="stylesheet" type="text/css" href="./static/css/jquery-ui.css" />');
+	}
 
-  $$("#navbar").toggle();
+	$$(document).ready(function() {
+		$$("#navbar").toggle();
+		$$("#footer").toggle();
+	});
+
+	loadCSS();
 
 </script>
 <script src="./static/js/jquery.mousewheel.min.js"></script>
