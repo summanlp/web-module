@@ -6,17 +6,19 @@ $def with (content)
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Summa NLP - $content.title</title>
+    <title>Summa &ndash; $content.title</title>
 
     <!-- Bootstrap: theme obtenido de http://bootswatch.com/paper/  SummaBlue: #2196f3-->
     <link href="./static/css/bootstrap.css" rel="stylesheet">
     <link href="./static/css/slider.css" rel="stylesheet">
     <link href="./static/css/bootstrap-switch.css" rel="stylesheet">
+    <link href="./static/css/textrank-web.css" rel="stylesheet">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
     <link rel="shortcut icon" type="image/x-icon" href="./static/img/favicon.ico">
 </head>
+
 <body>
     <div id="navbar">
         <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
@@ -41,7 +43,6 @@ $def with (content)
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
-
     </div>
 
     $:content

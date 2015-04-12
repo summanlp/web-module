@@ -1,0 +1,40 @@
+
+html {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  position: relative;
+  min-height: 100%;
+}
+
+/********************** Sticky footer ********************************/
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 35px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 35px;
+  background-color: #085CA0;
+}
+
+/* Custom page CSS */
+body > .container {
+  padding: 20px 15px 0;
+}
+.container .text-muted {
+  margin: 5px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+/*************************************************************/
