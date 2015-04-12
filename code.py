@@ -11,7 +11,6 @@ from summa.export import gexf_export
 render = web.template.render('templates/', base='layout')
 urls = (
     '/', 'autosummarize',
-    '/foo','foo',
     '/gexf','gexf'
 )
 LANGUAGES = {
@@ -31,18 +30,6 @@ LANGUAGES = {
     'spanish': 'Spanish',
     'swedish': 'Swedish'
 }
-
-class foo:
-    def GET(self):
-        lista = [1,3,5,7]
-        web.header('Content-Type', 'application/json')
-        return json.dumps({"data":lista})
-
-    def POST(self):
-        input = web.input()
-        print input
-        return "the whole summary goes here"
-
 
 def format_results(result, show_scores, method):
     separator = "<br>" if method == "summarize" else "<br> - "
