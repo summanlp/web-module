@@ -3,15 +3,15 @@ $var title: Summarizer
 
 <div class="container">
     <div class="row">
-        <div class="col-md-offset-1">
-            <h2>Autosummarization tool</h2>
+        <div class="col-md-12">
+            <h2>Summarization tool</h2>
         </div>
     </div>
 
     <br />
 
     <div class="row">
-        <div class="col-md-offset-1 col-md-6">
+        <div class="col-md-10">
             <form role="form" class="form-horizontal">
                 <textarea class="form-control" name="text" id="text" style="resize: none; font-size:15px; line-height: 120%;" 
                 cols="90" rows="15" placeholder="Enter a text to summarize..." required>$text</textarea>    
@@ -48,8 +48,6 @@ $var title: Summarizer
                 </div>
 
                 <div class="pull-right">
-                    <!-- <button class="btn btn-success btn-lg submits" value="keywords">Keywords</button> -->
-
                     <div class="btn-group">
                         <a class="btn btn-success btn-lg submits" data-value="keywords">Keywords</a>
                         <a href="#" class="btn btn-success btn-lg dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
@@ -67,6 +65,10 @@ $var title: Summarizer
                     </div>
                 </div>
             </form>
+        </div>
+        
+        <div class="col-md-2">
+            <a class="btn btn-default btn-s" id="btn-load-sample">Load sample text</a>
         </div>
     </div> <!-- /row -->
 
@@ -125,6 +127,18 @@ $var title: Summarizer
                 exportData($$(this).data("value"));
             }
         });
+        
+        jQuery('#btn-load-sample').click(
+            function() {
+                jQuery.ajax({
+                    url: "sample"
+                }).done(
+                    function(data) {
+                        jQuery('#text').html(data);
+                    }
+                );
+            }
+        );
 
         function postData(methodName) {
             $$.post("/", {
