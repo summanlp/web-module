@@ -1,6 +1,6 @@
 web-module
 ==========
 
-Web module for TextRank execution and visualization
+A simple [web.py](http://webpy.org/) site for testing the features of our approach to the [https://github.com/summanlp/textrank](TextRank) summarization algorithm.
 
-You can check out our new app at the Official Site of <a target="_blank" href="http://summanlp.herokuapp.com/">Summa NLP</a>
+The site is currently running [http://summa.fbarrios.com.ar/](here).
