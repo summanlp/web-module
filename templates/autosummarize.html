@@ -10,27 +10,66 @@ $var title: Summarizer
 
     <br />
 
-    <div class="row">
-        <div class="col-md-10">
-            <form role="form" class="form-horizontal">
-                <textarea class="form-control" name="text" id="text" style="resize: none; font-size:15px; line-height: 120%;" 
-                cols="90" rows="15" placeholder="Enter a text to summarize..." required>$text</textarea>    
-
-                <br />
-
-                <button class="btn btn-default btn-sm" type="button" id="showOptions">Show options</button>
+    <form role="form" class="form-horizontal">
+        <div class="row">
+            <div class="col-md-8">
                 
-                <div id="options" style="display:none; margin: 15px;">
-                    <div class="form-group">
-                        <label class="control-label col-md-2" for="length">Length</label>
-                        <div class="col-md-6">
-                            <input id="ex1" name="length" data-slider-id='ex1Slider' type="text" data-slider-min="1" data-slider-max="100" data-slider-step="1" data-slider-value="20" class="form-control" />
-                        </div>
-                    </div> 
+                <div class="row">
+                    <div class="col-md-12">
+                        <textarea class="form-control" name="text" id="text" style="resize: none; font-size:15px; line-height: 120%;" 
+                            cols="90" rows="15" placeholder="Enter a text to summarize..." required>$text</textarea>    
+                    </div>
+                </div>
+                               
+                <br />
+                               
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="pull-right">
+                            <div class="btn-group">
+                                <a class="btn btn-success btn-lg submits" data-value="keywords">Keywords</a>
+                                <a href="#" class="btn btn-success btn-lg dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="exports" data-value="keywords">Export graph</a></li>
+                                </ul>
+                            </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-md-2" for="language">Language</label>
-                        <div class="col-md-6">
+                            <div class="btn-group">
+                                <a class="btn btn-primary btn-lg submits" data-value="summarize">Summarize</a>
+                                <a href="#" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="exports" data-value="summarize">Export graph</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>                        
+            </div>
+            
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <a class="btn btn-default btn-s" id="btn-load-sample">Load sample text</a>
+                    </div>
+                </div>
+                            
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label" for="length">Length</label>
+                            <div class="">
+                                <input id="ex1" name="length" data-slider-id='ex1Slider' type="text" data-slider-min="1" data-slider-max="100" 
+                                    data-slider-step="1" data-slider-value="20" class="form-control" />
+                            </div>
+                        </div> 
+                        
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label" for="language">Language</label>
                             <select class="form-control" name="language" id="language">
                                 $for key,name in languages.iteritems():
                                     $if key == "english":
@@ -39,39 +78,17 @@ $var title: Summarizer
                                         <option value="$key">$name</option>
                             </select>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-md-2" for="scores">Scores</label>
-                        <div class="col-md-6"><input id="showScores" name="scores" type="checkbox"></div>
+                        <div class="form-group">
+                            <label class="control-label" for="scores">Scores</label>
+                            <input id="showScores" name="scores" type="checkbox">
+                        </div>
                     </div>
                 </div>
-
-                <div class="pull-right">
-                    <div class="btn-group">
-                        <a class="btn btn-success btn-lg submits" data-value="keywords">Keywords</a>
-                        <a href="#" class="btn btn-success btn-lg dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a class="exports" data-value="keywords">Export graph</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="btn-group">
-                        <a class="btn btn-primary btn-lg submits" data-value="summarize">Summarize</a>
-                        <a href="#" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a class="exports" data-value="summarize">Export graph</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </form>
+            </div>
         </div>
+    </form>
         
-        <div class="col-md-2">
-            <a class="btn btn-default btn-s" id="btn-load-sample">Load sample text</a>
-        </div>
-    </div> <!-- /row -->
-
     <br />
 
     <div class="col-md-offset-1 col-md-6 progress progress-striped active" style="display:none;">
