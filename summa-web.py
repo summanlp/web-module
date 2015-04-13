@@ -36,11 +36,20 @@ LANGUAGES = {
     'swedish': 'Swedish'
 }
 
-def format_results(result, show_scores, method):
-    separator = "<br>" if method == "summarize" else "<br> - "
-    result = ["{:.3f}".format(score) + " - " + phrase for phrase, score in result] if show_scores else result
-    return separator[4:] + separator.join(result)
+def format_results(result, show_scores):
+    result = ["{:.4f} &ndash; {}".format(score, phrase) for phrase, score in result] if show_scores else result
+    return "<br>".join(result)
 
+
+def format_as_a_list(result, show_scores):
+    output = "<ul>"
+    if show_scores:
+        items = ["<li>{:.4f} &ndash; {}</li>".format(score, phrase) for phrase, score in result]
+    else:
+        items = ["<li>{}</li>".format(phrase) for phrase in result]
+    output += "".join(items) + "</ul>"
+    return output
+    
 
 class autosummarize:
     def GET(self):
@@ -56,9 +65,13 @@ class autosummarize:
 
         try:
             result = method(text=text, ratio=length, language=language, split=True, scores=show_scores)
-            return format_results(result, show_scores, args.method)
         except:
             return ""
+
+        if method == summarize:
+            return format_results(result, show_scores)
+        else:
+            return format_as_a_list(result, show_scores)
 
 
 class text_sample:
