@@ -38,7 +38,7 @@ LANGUAGES = {
 
 def format_results(result, show_scores, method):
     separator = "<br>" if method == "summarize" else "<br> - "
-    result = ["{:.3f}".format(score) + " - " + phrase for phrase, score in result ]if show_scores else result
+    result = ["{:.3f}".format(score) + " - " + phrase for phrase, score in result] if show_scores else result
     return separator[4:] + separator.join(result)
 
 

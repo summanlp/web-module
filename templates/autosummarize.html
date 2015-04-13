@@ -43,7 +43,9 @@ $var title: Summarizer
                             </div>
                         </div>
                     </div>
-                </div>                        
+                </div>  
+                
+                <br />                      
             </div>
             
             <div class="col-md-3">
@@ -84,17 +86,16 @@ $var title: Summarizer
         </div>
     </form>
         
-    <br />
-
     <div class="col-md-offset-1 col-md-6 progress progress-striped active" style="display:none;">
         <div class="progress-bar" style="width: 100%"></div>
     </div>
 
-    <div id="results" class="row" style="display:none; margin-bottom: 20px;">
-        <div class="col-md-offset-1">
+    <div id="results" class="row" style="display:none;">
+        <div class="col-md-12">
             <h4 id="resulttitle"></h4>
-        </div>        
-        <div class="col-md-offset-2 col-md-6">    
+        </div>
+        
+        <div class="col-md-12">
             <p id="summary"></p>
         </div>
     </div>
@@ -109,7 +110,7 @@ $var title: Summarizer
         });
 
         $$("#showScores").bootstrapSwitch();
-
+        
         $$(".submits").click(function(event) {
             event.preventDefault();
             if ($$("#text").val().length > 0) {
@@ -149,10 +150,11 @@ $var title: Summarizer
                 method: methodName
             }, function(data) {
                 $$(".progress").toggle();
-                var title = methodName == "summarize" ? "Summary:" : "Keywords:"
+                var title = methodName == "summarize" ? "Summary" : "Keywords"
                 $$("#resulttitle").html(title);
                 $$("#summary").html(data);
                 $$("#results").show();
+                scrollToResults();
             });
         }
 
@@ -182,6 +184,12 @@ $var title: Summarizer
                 });
             }
             form.appendTo('body').submit();
+        }
+        
+        function scrollToResults() {
+            $$('html, body').animate({
+                scrollTop: $$('#results').offset().top
+            }, 2000);
         }
 
     });
