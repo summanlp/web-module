@@ -38,3 +38,11 @@ body > .container {
   padding-left: 15px;
 }
 /*************************************************************/
+
+.slider-selection {
+  background: #BABABA;
+}
+
+.slider-track-high {
+  background: #DCDCDC;
+}

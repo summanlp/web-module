@@ -26,13 +26,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * ========================================================= */
-#ex1Slider .slider-selection {
-  background: #BABABA;
-}
-
-#ex1Slider .slider-track-high {
-  background: #DCDCDC;
-}
 
 .slider {
   display: inline-block;
@@ -40,9 +33,8 @@
   position: relative;
 }
 .slider.slider-horizontal {
-  width: 430px;
+  width: 210px;
   height: 20px;
-  margin-top: 7px;
 }
 .slider.slider-horizontal .slider-track {
   height: 10px;
