@@ -14,6 +14,7 @@ render = web.template.render('templates/', base='layout')
 
 urls = (
     '/', 'autosummarize',
+    '/about', 'about',
     '/gexf','gexf',
     '/sample', 'text_sample'
 )
@@ -83,6 +84,10 @@ class gexf:
         os.system("mv {0} static/{0}".format(path))
         return render.gexf(path="./static/" + path)
 
+
+class about:
+    def GET(self):
+        return render.about()
 
 app = web.application(urls, globals())
 
