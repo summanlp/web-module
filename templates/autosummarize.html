@@ -50,21 +50,8 @@ $var title: Summarizer
                 </div>
 
                 <div class="pull-right">
-                    <div class="btn-group">
-                        <a class="btn btn-success btn-lg submits" data-value="keywords">Keywords</a>
-                        <a href="#" class="btn btn-success btn-lg dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a class="exports" data-value="keywords">Export graph</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="btn-group">
-                        <a class="btn btn-primary btn-lg submits" data-value="summarize">Summarize</a>
-                        <a href="#" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a class="exports" data-value="summarize">Export graph</a></li>
-                        </ul>
-                    </div>
+                    <a class="btn btn-success btn-lg submits" data-value="keywords">Keywords</a>
+                    <a class="btn btn-primary btn-lg submits" data-value="summarize">Summarize</a>
                 </div>
             </form>
         </div>
@@ -72,7 +59,7 @@ $var title: Summarizer
         <div class="col-md-2">
             <a class="btn btn-default btn-s" id="btn-load-sample">Load sample text</a>
         </div>
-    </div> <!-- /row -->
+    </div>
 
     <br />
 
@@ -120,16 +107,7 @@ $var title: Summarizer
                 postData($$(this).data("value"));
             }
         });
-
-        $$(".exports").click(function(event) {
-            event.preventDefault();
-            if ($$("#text").val().length > 0) {
-                $$("#results").hide();
-                $$(".progress").toggle();
-                exportData($$(this).data("value"));
-            }
-        });
-        
+       
         jQuery('#btn-load-sample').click(
             function() {
                 jQuery.ajax({
